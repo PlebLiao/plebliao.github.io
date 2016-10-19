@@ -1,6 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> issue vuex2.0 变化（翻译） · ddddup</title><meta name="description" content="issue vuex2.0 变化（翻译） - ddddup"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">issue vuex2.0 变化（翻译）</h1><div class="post-time">Jul 22, 2016</div><div class="post-content"><p>原文链接：<a href="https://github.com/vuejs/vuex/issues/236" target="_blank" rel="external">https://github.com/vuejs/vuex/issues/236</a></p>
-<p>###1. 术语命名的变化让使其更加语义化</p>
-<p>Dispatching一个mutation听起来不是很正确。Dispatch应该表示某件事情发生的意向。而对于mutations，我们需要一个动词用来表示一旦调用它就会发生状态的修改。</p>
+<h3 id="1-术语命名的变化让使其更加语义化"><a href="#1-术语命名的变化让使其更加语义化" class="headerlink" title="1. 术语命名的变化让使其更加语义化"></a>1. 术语命名的变化让使其更加语义化</h3><p>Dispatching一个mutation听起来不是很正确。Dispatch应该表示某件事情发生的意向。而对于mutations，我们需要一个动词用来表示一旦调用它就会发生状态的修改。</p>
 <ul>
 <li>老版本调用<code>store.dispatch</code> 现在改为使用<code>store.commit</code>。</li>
 <li><code>store.dispatch</code> 将用于触发actions动作。（参见下节说明）</li>
@@ -10,8 +9,7 @@
 <li>“dispatching an action”: 表明某些事件发生的意向（可能是异步操作产生的副作用）</li>
 <li>“committing a mutation”: 说明会使实际状态发生改变的同步操作</li>
 </ul>
-<p>###2. 模块可移植性 &amp; 可组合性</p>
-<h5 id="store和modules中的actions"><a href="#store和modules中的actions" class="headerlink" title="store和modules中的actions"></a>store和modules中的actions</h5><p>在store的actions或者是modules内部可以设置通用的请求，以前，在store/modules不设置多个actions的原因是：我们如何去访问他们。actions定义在store里面的意味着我们需要访问store - 再次说明下，这是个单例问题，现在不存在这个问题。</p>
+<h3 id="2-模块可移植性-amp-可组合性"><a href="#2-模块可移植性-amp-可组合性" class="headerlink" title="2. 模块可移植性 &amp; 可组合性"></a>2. 模块可移植性 &amp; 可组合性</h3><h5 id="store和modules中的actions"><a href="#store和modules中的actions" class="headerlink" title="store和modules中的actions"></a>store和modules中的actions</h5><p>在store的actions或者是modules内部可以设置通用的请求，以前，在store/modules不设置多个actions的原因是：我们如何去访问他们。actions定义在store里面的意味着我们需要访问store - 再次说明下，这是个单例问题，现在不存在这个问题。</p>
 <p>现在它们只是函数，我们可以将它们对外提供action.actions并且可以直接访问。实际上这个API已经在Vuex 0.4.x提供：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">store.xxx <span class="comment">// reserved for Store class methods/properties</span></span><br><span class="line">store.actions.xxx <span class="comment">// this seems ok</span></span><br></pre></td></tr></table></figure>
 <p>问题是当actions定义在modules内时，如果多个modules定义了同名的actions怎么处理？有时候我们想调用action去出发多个stores，就像mutations一样。</p>

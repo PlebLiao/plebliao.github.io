@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-10-19T09:03:20.000Z</updated>
+  <updated>2016-10-19T09:08:25.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,11 +20,10 @@
     <link href="http://yoursite.com/2016/07/22/vuex2.0%E5%8F%98%E5%8C%96%EF%BC%88%E7%BF%BB%E8%AF%91%EF%BC%89/"/>
     <id>http://yoursite.com/2016/07/22/vuex2.0变化（翻译）/</id>
     <published>2016-07-22T07:48:26.000Z</published>
-    <updated>2016-10-19T09:03:20.000Z</updated>
+    <updated>2016-10-19T09:08:25.000Z</updated>
     
     <content type="html">&lt;p&gt;原文链接：&lt;a href=&quot;https://github.com/vuejs/vuex/issues/236&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/vuejs/vuex/issues/236&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;###1. 术语命名的变化让使其更加语义化&lt;/p&gt;
-&lt;p&gt;Dispatching一个mutation听起来不是很正确。Dispatch应该表示某件事情发生的意向。而对于mutations，我们需要一个动词用来表示一旦调用它就会发生状态的修改。&lt;/p&gt;
+&lt;h3 id=&quot;1-术语命名的变化让使其更加语义化&quot;&gt;&lt;a href=&quot;#1-术语命名的变化让使其更加语义化&quot; class=&quot;headerlink&quot; title=&quot;1. 术语命名的变化让使其更加语义化&quot;&gt;&lt;/a&gt;1. 术语命名的变化让使其更加语义化&lt;/h3&gt;&lt;p&gt;Dispatching一个mutation听起来不是很正确。Dispatch应该表示某件事情发生的意向。而对于mutations，我们需要一个动词用来表示一旦调用它就会发生状态的修改。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;老版本调用&lt;code&gt;store.dispatch&lt;/code&gt; 现在改为使用&lt;code&gt;store.commit&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;store.dispatch&lt;/code&gt; 将用于触发actions动作。（参见下节说明）&lt;/li&gt;
@@ -34,8 +33,7 @@
 &lt;li&gt;“dispatching an action”: 表明某些事件发生的意向（可能是异步操作产生的副作用）&lt;/li&gt;
 &lt;li&gt;“committing a mutation”: 说明会使实际状态发生改变的同步操作&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;###2. 模块可移植性 &amp;amp; 可组合性&lt;/p&gt;
-&lt;h5 id=&quot;store和modules中的actions&quot;&gt;&lt;a href=&quot;#store和modules中的actions&quot; class=&quot;headerlink&quot; title=&quot;store和modules中的actions&quot;&gt;&lt;/a&gt;store和modules中的actions&lt;/h5&gt;&lt;p&gt;在store的actions或者是modules内部可以设置通用的请求，以前，在store/modules不设置多个actions的原因是：我们如何去访问他们。actions定义在store里面的意味着我们需要访问store - 再次说明下，这是个单例问题，现在不存在这个问题。&lt;/p&gt;
+&lt;h3 id=&quot;2-模块可移植性-amp-可组合性&quot;&gt;&lt;a href=&quot;#2-模块可移植性-amp-可组合性&quot; class=&quot;headerlink&quot; title=&quot;2. 模块可移植性 &amp;amp; 可组合性&quot;&gt;&lt;/a&gt;2. 模块可移植性 &amp;amp; 可组合性&lt;/h3&gt;&lt;h5 id=&quot;store和modules中的actions&quot;&gt;&lt;a href=&quot;#store和modules中的actions&quot; class=&quot;headerlink&quot; title=&quot;store和modules中的actions&quot;&gt;&lt;/a&gt;store和modules中的actions&lt;/h5&gt;&lt;p&gt;在store的actions或者是modules内部可以设置通用的请求，以前，在store/modules不设置多个actions的原因是：我们如何去访问他们。actions定义在store里面的意味着我们需要访问store - 再次说明下，这是个单例问题，现在不存在这个问题。&lt;/p&gt;
 &lt;p&gt;现在它们只是函数，我们可以将它们对外提供action.actions并且可以直接访问。实际上这个API已经在Vuex 0.4.x提供：&lt;/p&gt;
 &lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;store.xxx &lt;span class=&quot;comment&quot;&gt;// reserved for Store class methods/properties&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;store.actions.xxx &lt;span class=&quot;comment&quot;&gt;// this seems ok&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;问题是当actions定义在modules内时，如果多个modules定义了同名的actions怎么处理？有时候我们想调用action去出发多个stores，就像mutations一样。&lt;/p&gt;
